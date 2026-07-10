@@ -10,7 +10,7 @@ st.set_page_config(
     page_icon=":material/directions_car:",
     layout="wide"
 )
-st.title(":blue[:material/directions_car: Cars67] ")
+st.title(":blue[:material/directions_car: Cars67] | Cars 6×4 / 7 ")
 
 mode = st.segmented_control("Mode", ["Predict Price", "Compare Vehicles"], default="Predict Price")
 lookup, hierarchy = load_and_parse_lookup()
