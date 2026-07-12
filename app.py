@@ -125,3 +125,5 @@ elif mode == "Compare Vehicles":
                     st.rerun()
             else:
                 st.write(st.session_state['cmp_rev'])
+st.markdown("<br><br>", unsafe_allow_html=True)
+st.markdown("<div style='text-align: center; color: gray;'>Designed & Developed by <b>Pranay Bothra</b> | Last Updated: July 2026</div>", unsafe_allow_html=True)
