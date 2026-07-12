@@ -65,7 +65,7 @@ def get_price_explanation(car_details, predicted_price, shap_pos_list, shap_neg_
     # Generates an AI-powered explanation for the predicted vehicle valuation.
 
     # Primary models prioritized for analytical reasoning and structured explanations
-    gemini_models = ["gemini-3.5-flash", "gemini-2.5-flash", "gemini-3.1-flash-lite"]
+    gemini_models = ["gemini-3.5-flash", "gemini-2.5-flash","gemini-3-flash", "gemini-3.1-flash-lite"]
 
     # Secondary models used as fallback if the primary tier is unavailable
     gemma_models = ["gemma-4-31b-it", "gemma-4-26b-a4b-it"]
@@ -146,7 +146,7 @@ def generate_car_comparison(car_a_name, car_a_specs, car_a_price, car_b_name, ca
     gemma_models = ["gemma-4-31b-it", "gemma-4-26b-a4b-it"]
 
     # Secondary models used as fallback if the primary tier is unavailable
-    gemini_models = ["gemini-3.5-flash", "gemini-3-flash", "gemini-2.5-flash", "gemini-3.1-flash-lite"]
+    gemini_models = [ "gemini-3-flash", "gemini-3.5-flash","gemini-2.5-flash", "gemini-3.1-flash-lite"]
     
     prompt = f"""
     You are an objective and highly critical automotive advisor. 
@@ -232,48 +232,12 @@ def generate_inspection_checklist(car_details, age, mileage):
     # Execute the primary-to-fallback model cascade
     return execute_model_cascade([(gemma_models, prompt), (gemini_models, prompt)], fallback)
 
-def generate_vehicle_review(oem, model_name):
-    """Generates a long-term market reputation summary with confidence guards."""
-    gemini_models = ["gemini-3.1-flash-lite", "gemini-2.5-flash-lite"]
-    gemma_models = ["gemma-4-31b-it", "gemma-4-26b-a4b-it"]
-    
-    prompt = f"""
-    You are a highly critical and objective automotive market analyst.
-    
-    ### INPUT DATA
-    <vehicle_lineage>
-    Make: {oem}
-    Model: {model_name}
-    </vehicle_lineage>
-    
-    ### TASK
-    Provide a long-term market reputation summary. Structure your response strictly in Markdown with these EXACT 3 sections:
-    
-    ### Market Reputation
-    (1 concise paragraph detailing how this car holds up over time, its resale value trends, and general public perception.)
-    
-    ### Key Strengths
-    (3 specific bullet points highlighting its best attributes.)
-    
-    ### Known Flaws and Red Flags
-    (3 specific bullet points detailing common mechanical failures or typical complaints.)
-    
-    ### CRITICAL CONSTRAINTS
-    - ABSOLUTELY NO EMOJIS anywhere in the output.
-    - Discuss ONLY issues that are commonly reported for this vehicle lineage.
-    - If you are not highly confident about a specific part failure, describe it as a general category (e.g., 'suspension components') rather than inventing a specific issue. 
-    - DO NOT include any generic introductory or concluding remarks.
-    """
-    
-    fallback = "Market reputation data is currently unavailable due to high server load."
-    # Cascade: Gemini (better base knowledge for general cars) -> Gemma
-    return execute_model_cascade([(gemini_models, prompt), (gemma_models, prompt)], fallback)
 
 def generate_vehicle_review(oem, model_name):
     # Generates an AI-powered summary of a vehicle's long-term market reputation.
 
     # Primary models prioritized for broader automotive knowledge
-    gemini_models = ["gemini-3.1-flash-lite", "gemini-2.5-flash-lite"]
+    gemini_models = ["gemini-3.1-flash-lite", "gemini-3-flash","gemini-2.5-flash-lite"]
 
     # Secondary models used as fallback if the primary tier is unavailable
     gemma_models = ["gemma-4-31b-it", "gemma-4-26b-a4b-it"]
